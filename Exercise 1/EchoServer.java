@@ -14,7 +14,6 @@ public final class EchoServer {
             try (Socket socket = serverSocket.accept()) {
             	String address = socket.getInetAddress().getHostAddress();
             	System.out.printf("Client connected: %s%n", address);
-                //System.out.print("Client connected: " + socket.getInetAddress());
                 BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
                 pw.println("Hi, thanks for connecting! Type 'exit' to close.");
