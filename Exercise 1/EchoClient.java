@@ -1,20 +1,27 @@
 
-import java.io.InputStream;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.Socket;
+import javax.net.SocketFactory;
 
 public final class EchoClient {
 
     public static void main(String[] args) throws Exception {
-        try (Socket socket = new Socket("localhost", 22222)) {
-            InputStream is = socket.getInputStream();
-            InputStreamReader isr = new InputStreamReader(is, "UTF-8");
-            BufferedReader br = new BufferedReader(isr);
-            System.out.println(br.readLine());
+        try (Socket socket = SocketFactory.getDefault().createSocket("localhost", 22222)) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter w = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader con = new BufferedReader(new InputStreamReader(System.in));
+            String line;
+
+            do
+            {
+            	line = br.readLine();
+            	if(line != null) System.out.println(line);
+            	System.out.print("Client> ");
+            	line = con.readLine();
+            	w.println(line);
+            }
+            while ( !line.trim().equals("exit"));
         }
     }
 }
-
-
 
