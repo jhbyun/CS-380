@@ -29,21 +29,21 @@ public class Ex2Client {
 				b0 = is.read();
 				array[i] = ((b1 << 4) | b0);
 				System.out.printf("%02X", array[i]);
-				bArray[i] = (byte)array[i];
+				bArray[i] = (byte) array[i];
 			}
 
 			CRC32 crc = new CRC32();
 			crc.update(bArray, 0, 100);
 			long code = crc.getValue();
 			System.out.printf("\nGenerated CRC32: %08X.\n", code);
-			
+
 			bb.putInt((int) code);
 			byte[] writeToServer = bb.array();
 			out.write(writeToServer);
 			int response = br.read();
 			if (response == 1) {
 				System.out.println("Response good.");
-			} 
+			}
 			System.out.println("Disconnected from server.");
 
 		}
