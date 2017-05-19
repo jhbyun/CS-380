@@ -3,9 +3,8 @@ import java.net.Socket;
 import java.util.Random;
 
 public final class UdpClient {
-
+	
 	public static void main(String[] args) throws Exception {
-
 		try (Socket socket = new Socket("codebank.xyz", 38005)) {
 			OutputStream os = socket.getOutputStream();
 			InputStream is = socket.getInputStream();
